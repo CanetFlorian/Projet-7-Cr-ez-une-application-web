@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import ImgAccueil from '../../assets/Image source 1.png'
 import Thumb from '../../assets/Thumb.png'
 
-const HomeWrapper = styled.div`
+export const HomeWrapper = styled.div`
   display: flex;
   justify-content: center;
   max-width: 1440px;
@@ -10,7 +10,7 @@ const HomeWrapper = styled.div`
   align-items: center;
   margin-bottom: 50px;
 `
-const HomeContainer = styled.div`
+export const HomeContainer = styled.div`
   width: 1320px;
   height: 223px;
   display: flex;
@@ -21,7 +21,7 @@ const HomeContainer = styled.div`
   overflow: hidden;
   margin-bottom: 40px;
 `
-const HomeImg = styled.img`
+export const HomeImg = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
