@@ -35,7 +35,9 @@ function Header() {
         <StyledLink to="/" end>
           Accueil
         </StyledLink>
-        <StyledLink to="/about">A propos</StyledLink>
+        <StyledLink to="/about" end>
+          A propos
+        </StyledLink>
       </div>
     </NavContainer>
   )

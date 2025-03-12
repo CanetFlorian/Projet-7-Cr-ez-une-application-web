@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import star from '../../assets/star.png'
 import starVide from '../../assets/starVide.png'
 import Collapse from '../../components/Collapse'
+import FlecheCarousselGauche from '../../assets/FlecheCarousselGauche.png'
+import FlecheCarousselDroite from '../../assets/FlecheCarousselDroite.png'
 
 const LogementWrapper = styled.div`
   display: flex;
@@ -104,6 +106,7 @@ const LogementCollapseWrapper = styled.div`
   justify-content: space-between;
   padding-top: 20px;
 `
+
 function Logement() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -170,7 +173,9 @@ function Logement() {
         <Collapse title="Equipements" width="582px">
           <p>
             {logement.equipments.map((equipment, index) => (
-              <li key={index}>{equipment}</li>
+              <li key={index} style={{ listStyleType: 'none' }}>
+                {equipment}
+              </li>
             ))}
           </p>
         </Collapse>
