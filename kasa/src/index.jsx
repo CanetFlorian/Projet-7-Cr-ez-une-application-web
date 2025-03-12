@@ -6,6 +6,7 @@ import Error from './components/Error404'
 import Header from './components/Header'
 import About from './pages/About'
 import Footer from './components/Footer'
+import Logement from './pages/Logement'
 import { createGlobalStyle } from 'styled-components'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -24,6 +25,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/logement/:id" element={<Logement />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
