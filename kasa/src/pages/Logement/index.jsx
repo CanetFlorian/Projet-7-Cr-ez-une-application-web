@@ -53,11 +53,12 @@ const Tag = styled.li`
   justify-content: center;
   align-items: center;
   background-color: #ff6060;
-  width: 115px;
   height: 25px;
   border-radius: 10px;
   font-size: 14px;
   color: white;
+  padding: 0 10px;
+  min-width: 80px;
 `
 
 const LogementHostPictureName = styled.div`
