@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import appartList from '../../datas'
 import styled from 'styled-components'
+import star from '../../assets/star.png'
+import starVide from '../../assets/starVide.png'
 
 const LogementWrapper = styled.div`
   display: flex;
@@ -86,6 +88,12 @@ const LogementHostPhoto = styled.img`
   height: 64px;
   border-radius: 50%;
 `
+
+const LogementStarContainer = styled.div``
+const LogementStarTagsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 function Logement() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -102,7 +110,21 @@ function Logement() {
   }, [id, navigate])
 
   if (!logement) {
-    return <div>Chargement...</div>
+    return <div>Chargement de la page en cours...</div>
+  }
+
+  const notationStar = (rating) => {
+    const totalStars = 5
+    let stars = []
+
+    for (let i = 0; i < totalStars; i++) {
+      if (i < rating) {
+        stars.push(<img key={i} src={star} alt="étoile" />)
+      } else {
+        stars.push(<img keu={i} src={starVide} alt="étoile vide" />)
+      }
+    }
+    return stars
   }
 
   return (
@@ -121,11 +143,17 @@ function Logement() {
           />
         </LogementHostPictureName>
       </LogementTitleHostWrapper>
-      <LogementTagsContainer>
-        {logement.tags.map((tag, index) => (
-          <Tag key={index}>{tag}</Tag>
-        ))}
-      </LogementTagsContainer>
+      <LogementStarTagsWrapper>
+        <LogementTagsContainer>
+          {logement.tags.map((tag, index) => (
+            <Tag key={index}>{tag}</Tag>
+          ))}
+        </LogementTagsContainer>
+        <LogementStarContainer>
+          {notationStar(logement.rating)}
+        </LogementStarContainer>
+      </LogementStarTagsWrapper>
+
       <p>{logement.description}</p>
       <h3>Equipements :</h3>
       <ul>
@@ -135,7 +163,6 @@ function Logement() {
       </ul>
 
       <h3>Note :</h3>
-      <p>{logement.rating} / 5</p>
     </LogementWrapper>
   )
 }
