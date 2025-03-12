@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import ArrowD from '../../assets/flechebas.png'
 
 const CollapseContainer = styled.div`
-  width: 1023px;
+  width: ${(props) => props.width || '1023px'};
   margin-bottom: 40px;
 `
 
@@ -36,7 +36,7 @@ const CollapseContent = styled.div`
   witdh: 100%;
 `
 
-const Collapse = ({ title, children }) => {
+const Collapse = ({ title, children, width }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleCollapse = () => {
@@ -44,7 +44,7 @@ const Collapse = ({ title, children }) => {
   }
 
   return (
-    <CollapseContainer>
+    <CollapseContainer width={width}>
       <CollapseHeader>
         <CollapseTitle>{title}</CollapseTitle>
         <CollapseArrow

@@ -4,6 +4,7 @@ import appartList from '../../datas'
 import styled from 'styled-components'
 import star from '../../assets/star.png'
 import starVide from '../../assets/starVide.png'
+import Collapse from '../../components/Collapse'
 
 const LogementWrapper = styled.div`
   display: flex;
@@ -90,10 +91,18 @@ const LogementHostPhoto = styled.img`
   border-radius: 50%;
 `
 
-const LogementStarContainer = styled.div``
+const LogementStarContainer = styled.div`
+  display: flex;
+  gap: 20px;
+`
 const LogementStarTagsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+`
+const LogementCollapseWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
 `
 function Logement() {
   const { id } = useParams()
@@ -154,16 +163,18 @@ function Logement() {
           {notationStar(logement.rating)}
         </LogementStarContainer>
       </LogementStarTagsWrapper>
-
-      <p>{logement.description}</p>
-      <h3>Equipements :</h3>
-      <ul>
-        {logement.equipments.map((equipment, index) => (
-          <li key={index}>{equipment}</li>
-        ))}
-      </ul>
-
-      <h3>Note :</h3>
+      <LogementCollapseWrapper>
+        <Collapse title="Description" width="582px">
+          <p>{logement.description}</p>
+        </Collapse>
+        <Collapse title="Equipements" width="582px">
+          <p>
+            {logement.equipments.map((equipment, index) => (
+              <li key={index}>{equipment}</li>
+            ))}
+          </p>
+        </Collapse>
+      </LogementCollapseWrapper>
     </LogementWrapper>
   )
 }
