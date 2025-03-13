@@ -107,10 +107,30 @@ const LogementCollapseWrapper = styled.div`
   padding-top: 20px;
 `
 
+const LogementPhotoFlecheWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`
+
+const LogementFlecheGauche = styled.img`
+  position: absolute;
+  top: 39%;
+  left: 10px;
+  cursor: pointer;
+`
+
+const LogementFlecheDroite = styled.img`
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  cursor: pointer;
+`
 function Logement() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [logement, setLogement] = useState(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
     const currentLogement = appartList.find((item) => item.id === id)
@@ -140,9 +160,36 @@ function Logement() {
     return stars
   }
 
+  const ImagePrecedente = () => {
+    setCurrentImageIndex((currentIndex) =>
+      currentIndex === 0 ? logement.pictures.length - 1 : currentIndex - 1
+    )
+  }
+
+  const ImageSuivante = () => {
+    setCurrentImageIndex((currentIndex) =>
+      currentIndex === logement.pictures.length - 1 ? 0 : currentIndex + 1
+    )
+  }
+
   return (
     <LogementWrapper>
-      <LogementPhoto src={logement.cover} alt={logement.title} />
+      <LogementPhotoFlecheWrapper>
+        <LogementPhoto
+          src={logement.pictures[currentImageIndex]}
+          alt={logement.title}
+        />
+        <LogementFlecheGauche
+          src={FlecheCarousselGauche}
+          alt="fleche gauche"
+          onClick={ImagePrecedente}
+        />
+        <LogementFlecheDroite
+          src={FlecheCarousselDroite}
+          alt="fleche droite"
+          onClick={ImageSuivante}
+        />
+      </LogementPhotoFlecheWrapper>
       <LogementTitleHostWrapper>
         <LogementTitleLocation>
           <LogementTitle>{logement.title}</LogementTitle>
