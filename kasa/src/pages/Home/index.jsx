@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import ImgAccueil from '../../assets/Image source 1.png'
 import Thumb from '../../assets/Thumb.png'
+import { Link } from 'react-router-dom'
+import appartList from '../../datas'
 
 export const HomeWrapper = styled.div`
   display: flex;
@@ -79,12 +81,11 @@ function Home() {
         <HomeTitle>Chez vous, partout et ailleurs</HomeTitle>
       </HomeContainer>
       <HomeContainer2>
-        <CardImg src={Thumb} alt="Fond rouge" />
-        <CardImg src={Thumb} alt="Fond rouge" />
-        <CardImg src={Thumb} alt="Fond rouge" />
-        <CardImg src={Thumb} alt="Fond rouge" />
-        <CardImg src={Thumb} alt="Fond rouge" />
-        <CardImg src={Thumb} alt="Fond rouge" />
+        {appartList.map((appart) => (
+          <Link key={appart.id} to={`/logement/${appart.id}`}>
+            <CardImg src={appart.cover} alt={`Image de ${appart.id}`} />
+          </Link>
+        ))}
       </HomeContainer2>
     </HomeWrapper>
   )

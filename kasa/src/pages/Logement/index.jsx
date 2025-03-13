@@ -134,9 +134,7 @@ const SlideNumber = styled.div`
   transform: translateX(-50%);
   color: white;
   font-size: 18px;
-
   padding: 5px 10px;
-
   z-index: 3;
 `
 function Logement() {
@@ -159,15 +157,16 @@ function Logement() {
     return <div>Chargement de la page en cours...</div>
   }
 
-  const notationStar = (rating) => {
+  const notationStar = (rating, logementId) => {
     const totalStars = 5
     let stars = []
 
     for (let i = 0; i < totalStars; i++) {
+      const key = `star-${logementId}-${i}-${rating}`
       if (i < rating) {
-        stars.push(<img key={i} src={star} alt="étoile" />)
+        stars.push(<img key={key} src={star} alt="étoile" />)
       } else {
-        stars.push(<img keu={i} src={starVide} alt="étoile vide" />)
+        stars.push(<img keu={key} src={starVide} alt="étoile vide" />)
       }
     }
     return stars
@@ -229,7 +228,7 @@ function Logement() {
       <LogementStarTagsWrapper>
         <LogementTagsContainer>
           {logement.tags.map((tag, index) => (
-            <Tag key={index}>{tag}</Tag>
+            <Tag key={`tag-${index}`}>{tag}</Tag>
           ))}
         </LogementTagsContainer>
         <LogementStarContainer>
@@ -243,7 +242,7 @@ function Logement() {
         <Collapse title="Equipements" width="582px">
           <p>
             {logement.equipments.map((equipment, index) => (
-              <li key={index} style={{ listStyleType: 'none' }}>
+              <li key={`equipment-${index}`} style={{ listStyleType: 'none' }}>
                 {equipment}
               </li>
             ))}
