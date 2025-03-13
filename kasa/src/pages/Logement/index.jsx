@@ -126,6 +126,19 @@ const LogementFlecheDroite = styled.img`
   transform: translateY(-50%);
   cursor: pointer;
 `
+
+const SlideNumber = styled.div`
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 18px;
+
+  padding: 5px 10px;
+
+  z-index: 3;
+`
 function Logement() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -179,16 +192,26 @@ function Logement() {
           src={logement.pictures[currentImageIndex]}
           alt={logement.title}
         />
-        <LogementFlecheGauche
-          src={FlecheCarousselGauche}
-          alt="fleche gauche"
-          onClick={ImagePrecedente}
-        />
-        <LogementFlecheDroite
-          src={FlecheCarousselDroite}
-          alt="fleche droite"
-          onClick={ImageSuivante}
-        />
+        {logement.pictures.length > 1 && (
+          <>
+            <LogementFlecheGauche
+              src={FlecheCarousselGauche}
+              alt="fleche gauche"
+              onClick={ImagePrecedente}
+            />
+            <LogementFlecheDroite
+              src={FlecheCarousselDroite}
+              alt="fleche droite"
+              onClick={ImageSuivante}
+            />
+          </>
+        )}
+
+        {logement.pictures.length > 1 && (
+          <SlideNumber>
+            {currentImageIndex + 1} / {logement.pictures.length}
+          </SlideNumber>
+        )}
       </LogementPhotoFlecheWrapper>
       <LogementTitleHostWrapper>
         <LogementTitleLocation>
