@@ -240,13 +240,13 @@ function Logement() {
           <p>{logement.description}</p>
         </Collapse>
         <Collapse title="Equipements" width="582px">
-          <p>
+          <ul>
             {logement.equipments.map((equipment, index) => (
               <li key={`equipment-${index}`} style={{ listStyleType: 'none' }}>
                 {equipment}
               </li>
             ))}
-          </p>
+          </ul>
         </Collapse>
       </LogementCollapseWrapper>
     </LogementWrapper>
