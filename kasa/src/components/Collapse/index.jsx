@@ -4,8 +4,9 @@ import styled from 'styled-components'
 import ArrowD from '../../assets/flechebas.png'
 
 const CollapseContainer = styled.div`
-  width: ${(props) => props.width || '1023px'};
   margin-bottom: 40px;
+  width: 100%;
+  @media (max-width: 768px) {
 `
 
 const CollapseHeader = styled.div`
@@ -21,6 +22,8 @@ const CollapseHeader = styled.div`
 const CollapseTitle = styled.h3`
   color: white;
   padding-left: 20px;
+  @media (max-width: 768px) {
+  font-size: 13px;
 `
 
 const CollapseArrow = styled.img`
@@ -36,7 +39,7 @@ const CollapseContent = styled.div`
   witdh: 100%;
 `
 
-const Collapse = ({ title, children, width }) => {
+const Collapse = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleCollapse = () => {
@@ -44,7 +47,7 @@ const Collapse = ({ title, children, width }) => {
   }
 
   return (
-    <CollapseContainer width={width}>
+    <CollapseContainer>
       <CollapseHeader>
         <CollapseTitle>{title}</CollapseTitle>
         <CollapseArrow

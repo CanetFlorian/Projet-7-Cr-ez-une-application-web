@@ -7,13 +7,13 @@ import appartList from '../../datas'
 export const HomeWrapper = styled.div`
   display: flex;
   justify-content: center;
-  max-width: 1440px;
+  max-width: 100%;
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
 `
 export const HomeContainer = styled.div`
-  width: 1320px;
+  width: 90%;
   height: 223px;
   display: flex;
   justify-content: center;
@@ -22,6 +22,9 @@ export const HomeContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 40px;
+  @media (max-width: 768px) {
+    height: 111px;
+  }
 `
 export const HomeImg = styled.img`
   position: absolute;
@@ -49,15 +52,31 @@ const HomeTitle = styled.h2`
   line-height: 143%;
   letter-spacing: 0%;
   vertical-align: bottom;
+  @media (max-width: 768px) {
+    font-size: 24px;
+    white-space: pre-line;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `
 const HomeContainer2 = styled.div`
-  width: 1320px;
+  width: 90%;
   display: grid;
   border-radius: 20px;
   background: #f6f6f6;
   grid-template-columns: repeat(3, 1fr);
   padding: 0;
   box-sizing: border-box;
+  padding: 40px;
+  gap:40px;
+  overflow: hidden;
+    @media (max-width: 768px) {
+    grid-template-columns: 1fr; 
+    background: white;
+    padding:0;
+   
+   
+   
 `
 
 const CardImg = styled.img`
@@ -65,11 +84,10 @@ const CardImg = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 10px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+
   box-sizing: border-box;
+  @media (max-width: 768px) {
+  }
 `
 
 function Home() {

@@ -7,12 +7,19 @@ import starVide from '../../assets/starVide.png'
 import Collapse from '../../components/Collapse'
 import FlecheCarousselGauche from '../../assets/FlecheCarousselGauche.png'
 import FlecheCarousselDroite from '../../assets/FlecheCarousselDroite.png'
+import FlecheGaucheSmall from '../../assets/FlecheGaucheSmall.png'
+import FlecheDroiteSmall from '../../assets/FlecheDroiteSmall.png'
 
 const LogementWrapper = styled.div`
   display: flex;
-  padding-left: 60px;
-  max-width: 1320px;
+  padding-left: 120px;
+  padding-right: 120px;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `
 
 const LogementPhoto = styled.img`
@@ -21,6 +28,10 @@ const LogementPhoto = styled.img`
   border-radius: 25px;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    height: 255px;
+  }
 `
 
 const LogementTitleLocation = styled.div`
@@ -37,6 +48,9 @@ const LogementTitle = styled.h1`
   justify-content: flex-start;
   margin-top: 30px;
   margin-bottom: 0;
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `
 const LogementLocation = styled.p`
   font-size: 18px;
@@ -49,6 +63,8 @@ const LogementTagsContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
+  flex-wrap: wrap;
+  overflow-x: auto;
 `
 
 const Tag = styled.li`
@@ -62,6 +78,9 @@ const Tag = styled.li`
   color: white;
   padding: 0 10px;
   min-width: 80px;
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
 `
 
 const LogementHostPictureName = styled.div`
@@ -70,10 +89,14 @@ const LogementHostPictureName = styled.div`
   justify-content: center;
   align-items: center;
   gap: 50px;
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 `
-const LogementTitleHostWrapper = styled.div`
+const LogementTitleHostTagWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-item: center;
   width: 100%;
 `
@@ -85,26 +108,48 @@ const LogementHostName = styled.h3`
   font-weight: 500;
   line-height: 143%;
   color: #ff6060;
+
+  @media (max-width: 768px) {
+  font-size:12px;
 `
 
 const LogementHostPhoto = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 50%;
+
+  @media (max-width: 768px) {
+  width: 32px;
+  height: 32px;
 `
 
 const LogementStarContainer = styled.div`
   display: flex;
   gap: 20px;
+  @media (max-width: 768px) {
+  width:98px;
+  height: 18px;
+  gap:10px;
+  
 `
-const LogementStarTagsWrapper = styled.div`
+const LogementHostStarWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 30px;
+  @media (max-width: 768px) {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
 `
 const LogementCollapseWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 20px;
+  gap: 20px;
+  @media (max-width: 768px) {
+  flex-direction: column;
+  
 `
 
 const LogementPhotoFlecheWrapper = styled.div`
@@ -117,6 +162,13 @@ const LogementFlecheGauche = styled.img`
   top: 39%;
   left: 10px;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    content: url(${FlecheGaucheSmall});
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
 `
 
 const LogementFlecheDroite = styled.img`
@@ -125,6 +177,12 @@ const LogementFlecheDroite = styled.img`
   right: 30px;
   transform: translateY(-50%);
   cursor: pointer;
+  @media (max-width: 768px) {
+    content: url(${FlecheDroiteSmall});
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
 `
 
 const SlideNumber = styled.div`
@@ -136,6 +194,13 @@ const SlideNumber = styled.div`
   font-size: 18px;
   padding: 5px 10px;
   z-index: 3;
+`
+
+const LogementContainerWrapper = styled.div`
+  display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 function Logement() {
   const { id } = useParams()
@@ -166,7 +231,7 @@ function Logement() {
       if (i < rating) {
         stars.push(<img key={key} src={star} alt="étoile" />)
       } else {
-        stars.push(<img keu={key} src={starVide} alt="étoile vide" />)
+        stars.push(<img key={key} src={starVide} alt="étoile vide" />)
       }
     }
     return stars
@@ -212,34 +277,37 @@ function Logement() {
           </SlideNumber>
         )}
       </LogementPhotoFlecheWrapper>
-      <LogementTitleHostWrapper>
-        <LogementTitleLocation>
-          <LogementTitle>{logement.title}</LogementTitle>
-          <LogementLocation>{logement.location}</LogementLocation>
-        </LogementTitleLocation>
-        <LogementHostPictureName>
-          <LogementHostName>{logement.host.name}</LogementHostName>
-          <LogementHostPhoto
-            src={logement.host.picture}
-            alt={logement.host.name}
-          />
-        </LogementHostPictureName>
-      </LogementTitleHostWrapper>
-      <LogementStarTagsWrapper>
-        <LogementTagsContainer>
-          {logement.tags.map((tag, index) => (
-            <Tag key={`tag-${index}`}>{tag}</Tag>
-          ))}
-        </LogementTagsContainer>
-        <LogementStarContainer>
-          {notationStar(logement.rating)}
-        </LogementStarContainer>
-      </LogementStarTagsWrapper>
+      <LogementContainerWrapper>
+        <LogementTitleHostTagWrapper>
+          <LogementTitleLocation>
+            <LogementTitle>{logement.title}</LogementTitle>
+            <LogementLocation>{logement.location}</LogementLocation>
+          </LogementTitleLocation>
+
+          <LogementTagsContainer>
+            {logement.tags.map((tag, index) => (
+              <Tag key={`tag-${index}`}>{tag}</Tag>
+            ))}
+          </LogementTagsContainer>
+        </LogementTitleHostTagWrapper>
+        <LogementHostStarWrapper>
+          <LogementHostPictureName>
+            <LogementHostName>{logement.host.name}</LogementHostName>
+            <LogementHostPhoto
+              src={logement.host.picture}
+              alt={logement.host.name}
+            />
+          </LogementHostPictureName>
+          <LogementStarContainer>
+            {notationStar(logement.rating)}
+          </LogementStarContainer>
+        </LogementHostStarWrapper>
+      </LogementContainerWrapper>
       <LogementCollapseWrapper>
-        <Collapse title="Description" width="582px">
+        <Collapse title="Description">
           <p>{logement.description}</p>
         </Collapse>
-        <Collapse title="Equipements" width="582px">
+        <Collapse title="Equipements">
           <ul>
             {logement.equipments.map((equipment, index) => (
               <li key={`equipment-${index}`} style={{ listStyleType: 'none' }}>
