@@ -21,6 +21,7 @@ const StyledLink = styled(NavLink)`
   @media (max-width: 768px) {
     font-size: 12px;
     padding-right: 20px;
+    text-transform: uppercase;
   }
 
   &.active {

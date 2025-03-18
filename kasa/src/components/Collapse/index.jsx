@@ -58,7 +58,7 @@ const Collapse = ({ title, children }) => {
       </CollapseHeader>
       {isOpen && (
         <CollapseContent>
-          <p>{children}</p>
+          <div>{children}</div>
         </CollapseContent>
       )}
     </CollapseContainer>

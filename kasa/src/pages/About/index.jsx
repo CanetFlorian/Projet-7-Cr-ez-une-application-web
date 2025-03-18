@@ -1,18 +1,20 @@
 import ImgAbout from '../../assets/Image source 2.png'
-import { HomeWrapper, HomeContainer, HomeImg } from '../Home'
+import Banner from '../../components/Banner'
 import Collapse from '../../components/Collapse'
 import styled from 'styled-components'
+import MainWrapper from '../../components/MainWrapper'
 
 const CollapseAboutWrapper = styled.div`
   width: 80%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `
 
 function About() {
   return (
-    <HomeWrapper>
-      <HomeContainer>
-        <HomeImg src={ImgAbout} alt="Image A propos" />
-      </HomeContainer>
+    <MainWrapper>
+      <Banner imageSrc={ImgAbout} showFonduGris={false} hideTitle={true} />
       <CollapseAboutWrapper>
         <Collapse title="Fiabilité">
           <p>
@@ -49,7 +51,7 @@ function About() {
           </p>
         </Collapse>
       </CollapseAboutWrapper>
-    </HomeWrapper>
+    </MainWrapper>
   )
 }
 

@@ -13,6 +13,8 @@ const ErrorTitle = styled.h2`
   font-weight: 700;
   color: #ff6060;
   margin: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
   @media (max-width: 768px) {
     font-size: 96px;
   }
@@ -21,6 +23,9 @@ const ErrorSubTitle = styled.h3`
   color: #ff6060;
   font-size: 36px;
   font-weight: 500;
+  margin: 0 auto;
+  width: 90%;
+  padding-bottom: 100px;
   @media (max-width: 768px) {
     font-size: 18px;
   }
@@ -30,7 +35,7 @@ const ErrorLink = styled(Link)`
   color: black;
   font-weight: 500;
   font-size: 18px;
-  padding-bottom: 60px;
+  padding-bottom: 150px;
   @media (max-width: 768px) {
     font-size: 14x;
   }

@@ -2,13 +2,10 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import appartList from '../../datas'
 import styled from 'styled-components'
+import Slideshow from '../../components/SlideShow'
 import star from '../../assets/star.png'
 import starVide from '../../assets/starVide.png'
 import Collapse from '../../components/Collapse'
-import FlecheCarousselGauche from '../../assets/FlecheCarousselGauche.png'
-import FlecheCarousselDroite from '../../assets/FlecheCarousselDroite.png'
-import FlecheGaucheSmall from '../../assets/FlecheGaucheSmall.png'
-import FlecheDroiteSmall from '../../assets/FlecheDroiteSmall.png'
 
 const LogementWrapper = styled.div`
   display: flex;
@@ -19,18 +16,6 @@ const LogementWrapper = styled.div`
   @media (max-width: 768px) {
     padding-left: 20px;
     padding-right: 20px;
-  }
-`
-
-const LogementPhoto = styled.img`
-  width: 100%;
-  height: 415px;
-  border-radius: 25px;
-  justify-content: center;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    height: 255px;
   }
 `
 
@@ -149,51 +134,8 @@ const LogementCollapseWrapper = styled.div`
   gap: 20px;
   @media (max-width: 768px) {
   flex-direction: column;
+  gap:0px;
   
-`
-
-const LogementPhotoFlecheWrapper = styled.div`
-  position: relative;
-  display: inline-block;
-`
-
-const LogementFlecheGauche = styled.img`
-  position: absolute;
-  top: 39%;
-  left: 10px;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    content: url(${FlecheGaucheSmall});
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-  }
-`
-
-const LogementFlecheDroite = styled.img`
-  position: absolute;
-  top: 50%;
-  right: 30px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  @media (max-width: 768px) {
-    content: url(${FlecheDroiteSmall});
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-  }
-`
-
-const SlideNumber = styled.div`
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 18px;
-  padding: 5px 10px;
-  z-index: 3;
 `
 
 const LogementContainerWrapper = styled.div`
@@ -206,7 +148,6 @@ function Logement() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [logement, setLogement] = useState(null)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   useEffect(() => {
     const currentLogement = appartList.find((item) => item.id === id)
@@ -237,46 +178,9 @@ function Logement() {
     return stars
   }
 
-  const ImagePrecedente = () => {
-    setCurrentImageIndex((currentIndex) =>
-      currentIndex === 0 ? logement.pictures.length - 1 : currentIndex - 1
-    )
-  }
-
-  const ImageSuivante = () => {
-    setCurrentImageIndex((currentIndex) =>
-      currentIndex === logement.pictures.length - 1 ? 0 : currentIndex + 1
-    )
-  }
-
   return (
     <LogementWrapper>
-      <LogementPhotoFlecheWrapper>
-        <LogementPhoto
-          src={logement.pictures[currentImageIndex]}
-          alt={logement.title}
-        />
-        {logement.pictures.length > 1 && (
-          <>
-            <LogementFlecheGauche
-              src={FlecheCarousselGauche}
-              alt="fleche gauche"
-              onClick={ImagePrecedente}
-            />
-            <LogementFlecheDroite
-              src={FlecheCarousselDroite}
-              alt="fleche droite"
-              onClick={ImageSuivante}
-            />
-          </>
-        )}
-
-        {logement.pictures.length > 1 && (
-          <SlideNumber>
-            {currentImageIndex + 1} / {logement.pictures.length}
-          </SlideNumber>
-        )}
-      </LogementPhotoFlecheWrapper>
+      <Slideshow pictures={logement.pictures} />
       <LogementContainerWrapper>
         <LogementTitleHostTagWrapper>
           <LogementTitleLocation>
@@ -305,7 +209,7 @@ function Logement() {
       </LogementContainerWrapper>
       <LogementCollapseWrapper>
         <Collapse title="Description">
-          <p>{logement.description}</p>
+          <div>{logement.description}</div>
         </Collapse>
         <Collapse title="Equipements">
           <ul>
