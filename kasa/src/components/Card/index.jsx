@@ -2,16 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import star from '../../assets/star.png'
 import starVide from '../../assets/starVide.png'
-import Slideshow from './Slideshow'
+import Slideshow from '../../components/SlideShow'
 
 const CardWrapper = styled.div`
   display: flex;
-  padding: 20px;
   flex-direction: column;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: white;
 `
 
 const CardTitleLocation = styled.div`
@@ -20,26 +15,30 @@ const CardTitleLocation = styled.div`
   margin: 0;
 `
 
-const CardTitle = styled.h2`
+const CardTitle = styled.h1`
   color: #ff6060;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: 500;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 30px;
+  margin-bottom: 0;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `
 
 const CardLocation = styled.p`
   font-size: 18px;
   font-weight: 500;
-  color: #000;
+  color: #000000;
 `
 
 const CardTagsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 15px;
+  gap: 20px;
   flex-wrap: wrap;
-  margin-top: 15px;
+  overflow-x: auto;
 `
 
 const Tag = styled.li`
@@ -52,12 +51,81 @@ const Tag = styled.li`
   font-size: 14px;
   color: white;
   padding: 0 10px;
+  min-width: 80px;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
 `
 
-const RatingContainer = styled.div`
+const CardHostPictureName = styled.div`
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+`
+
+const CardHostName = styled.h3`
+  width: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 143%;
+  color: #ff6060;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+`
+
+const CardHostPhoto = styled.img`
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  @media (max-width: 768px) {
+    width: 32px;
+    height: 32px;
+  }
+`
+const CardStarContainer = styled.div`
+  display: flex;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    width: 98px;
+    height: 18px;
+    gap: 10px;
+  }
+`
+const CardTitleHostTagWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-item: center;
+  width: 100%;
+`
+
+const CardContainerWrapper = styled.div`
+  display: flex;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`
+
+const CardHostStarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  @media (max-width: 768px) {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
 `
 
 const Card = ({ logement }) => {
@@ -78,16 +146,30 @@ const Card = ({ logement }) => {
   return (
     <CardWrapper>
       <Slideshow pictures={logement.pictures} />
-      <CardTitleLocation>
-        <CardTitle>{logement.title}</CardTitle>
-        <CardLocation>{logement.location}</CardLocation>
-        <CardTagsContainer>
-          {logement.tags.map((tag, index) => (
-            <Tag key={index}>{tag}</Tag>
-          ))}
-        </CardTagsContainer>
-      </CardTitleLocation>
-      <RatingContainer>{notationStar(logement.rating)}</RatingContainer>
+      <CardContainerWrapper>
+        <CardTitleHostTagWrapper>
+          <CardTitleLocation>
+            <CardTitle>{logement.title}</CardTitle>
+            <CardLocation>{logement.location}</CardLocation>
+          </CardTitleLocation>
+
+          <CardTagsContainer>
+            {logement.tags.map((tag, index) => (
+              <Tag key={`tag-${index}`}>{tag}</Tag>
+            ))}
+          </CardTagsContainer>
+        </CardTitleHostTagWrapper>
+        <CardHostStarWrapper>
+          <CardHostPictureName>
+            <CardHostName>{logement.host.name}</CardHostName>
+            <CardHostPhoto
+              src={logement.host.picture}
+              alt={logement.host.name}
+            />
+          </CardHostPictureName>
+          <CardStarContainer>{notationStar(logement.rating)}</CardStarContainer>
+        </CardHostStarWrapper>
+      </CardContainerWrapper>
     </CardWrapper>
   )
 }
